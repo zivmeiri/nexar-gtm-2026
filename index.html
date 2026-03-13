@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexar B2B Go-to-Market 2026</title>
+<style>
+@font-face {
+  font-family: 'Hellix';
+  src: url('fonts/Hellix-Bold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Roobert';
+  src: url('fonts/Roobert-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Roobert';
+  src: url('fonts/Roobert-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Roobert';
+  src: url('fonts/Roobert-SemiBold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Roobert';
+  src: url('fonts/Roobert-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Reset ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+/* ── Design Tokens ── */
+:root {
+  --bg: #060612;
+  --bg-panel: oklch(10% 0.02 280);
+  --bg-alt: oklch(13% 0.02 280);
+  --glass-bg: rgba(255,255,255,0.035);
+  --glass-border: rgba(255,255,255,0.07);
+  --glass-blur: 20px;
+  --green: #23e7d8;
+  --teal: #23e7d8;
+  --purple: #a183fa;
+  --light-purple: #c084fc;
+  --white: #fafafa;
+  --light-grey: #e8e8e8;
+  --text-bright: rgba(255,255,255,0.92);
+  --text-mid: rgba(255,255,255,0.78);
+  --text-dim: oklch(68% 0.02 280);
+  --section-pad-x: clamp(28px, 8vw, 140px);
+  --section-pad-y: clamp(80px, 12vh, 160px);
+}
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: Roobert, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ── Nav ── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px clamp(24px, 5vw, 80px);
+  background: rgba(6,6,18,0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.nav-logo { height: 22px; width: auto; }
+.nav-title {
+  font-family: Roobert, system-ui, sans-serif;
+  font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: rgba(255,255,255,0.60);
+}
+
+/* ── Hero ── */
+.hero {
+  position: relative; overflow: hidden;
+  min-height: 100vh; display: flex; align-items: center;
+  padding: 120px var(--section-pad-x) 80px;
+}
+.hero-bg { position: absolute; inset: 0; z-index: 0; }
+.hero-glow {
+  position: absolute; width: 60%; height: 80%; border-radius: 50%;
+  filter: blur(100px); top: 10%; left: -15%;
+  background: radial-gradient(ellipse, rgba(35,231,216,0.07), transparent 70%);
+}
+.hero-particle {
+  position: absolute; right: -5%; top: 0; width: 65%; height: 100%;
+  object-fit: cover; opacity: 0.35;
+  animation: pulse 8s ease-in-out infinite;
+  mask-image: radial-gradient(ellipse 90% 80% at 60% 50%, black 20%, transparent 90%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 80% at 60% 50%, black 20%, transparent 90%);
+}
+.hero-noise {
+  position: absolute; inset: 0; opacity: 0.04; pointer-events: none;
+}
+.hero-content {
+  position: relative; z-index: 3; max-width: 720px;
+}
+.hero-label {
+  font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--teal); margin-bottom: 24px;
+}
+.hero-title {
+  font-family: Hellix, system-ui, sans-serif;
+  font-size: clamp(36px, 6vw, 80px); font-weight: 600;
+  color: var(--text-bright); letter-spacing: -1.76px;
+  line-height: 1.05; margin-bottom: 28px;
+}
+.hero-title .accent { color: var(--teal); }
+.hero-sub {
+  font-size: clamp(17px, 2vw, 22px); color: var(--text-mid);
+  line-height: 1.6; max-width: 560px; margin-bottom: 40px;
+}
+.hero-stats {
+  display: flex; gap: clamp(32px, 5vw, 64px); flex-wrap: wrap;
+}
+.hero-stat-n {
+  font-size: clamp(28px, 4vw, 52px); font-weight: 600;
+  color: var(--teal); line-height: 1;
+}
+.hero-stat-n.purple { color: var(--purple); }
+.hero-stat-l {
+  font-size: 14px; color: rgba(255,255,255,0.70);
+  margin-top: 6px; line-height: 1.4;
+}
+.scroll-hint {
+  position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+  z-index: 3; display: flex; flex-direction: column; align-items: center; gap: 8px;
+}
+.scroll-hint span {
+  font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: rgba(255,255,255,0.40);
+}
+.scroll-line {
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+  animation: hint 2s ease-in-out infinite;
+}
+
+/* ── Sections ── */
+.tab-section {
+  position: relative; overflow: hidden;
+  padding: clamp(48px, 8vh, 100px) clamp(28px, 6vw, 80px);
+}
+.tab-section .tab-bg { position: absolute; inset: 0; z-index: 0; }
+.tab-section .tab-bg .tab-glow {
+  position: absolute; width: 50%; height: 70%;
+  border-radius: 50%; filter: blur(80px);
+}
+.tab-section .tab-bg .tab-particle-img {
+  position: absolute; right: 0; top: 0; width: 55%; height: 100%;
+  object-fit: cover; opacity: 0.3;
+  animation: pulse 7s ease-in-out infinite;
+  mask-image: radial-gradient(ellipse 80% 70% at 70% 50%, black 30%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 70% 50%, black 30%, transparent 100%);
+}
+.tab-section .tab-bg .tab-noise {
+  position: absolute; inset: 0; opacity: 0.04; pointer-events: none;
+}
+.tab-section .tab-content-inner {
+  position: relative; z-index: 3; max-width: 720px;
+}
+.tab-section .tab-content-inner.wide { max-width: 960px; }
+.tab-section.alt { background: rgba(255,255,255,0.015); }
+
+.tab-chapter {
+  font-family: Roobert, system-ui, sans-serif;
+  font-size: 13px; letter-spacing: 0.16em;
+  text-transform: uppercase; margin-bottom: 16px;
+}
+.tab-chapter.teal { color: var(--teal); }
+.tab-chapter.purple { color: var(--purple); }
+
+.tab-headline {
+  font-family: Hellix, system-ui, sans-serif;
+  font-size: clamp(28px, 4vw, 52px); font-weight: 600;
+  color: var(--text-bright);
+  letter-spacing: -1px; line-height: 1.1; margin-bottom: 20px;
+}
+
+.tab-copy {
+  font-family: Roobert, system-ui, sans-serif;
+  font-size: 18px; color: rgba(255,255,255,0.82);
+  max-width: 580px; line-height: 1.65; margin-bottom: 28px;
+}
+
+.tab-stat-row {
+  display: flex; gap: clamp(24px, 4vw, 48px); flex-wrap: wrap; margin-top: 24px;
+}
+.tab-stat .n {
+  font-family: Roobert, system-ui, sans-serif;
+  font-size: clamp(24px, 3.5vw, 44px); font-weight: 600;
+  color: var(--teal); line-height: 1;
+}
+.tab-stat.purple .n { color: var(--purple); }
+.tab-stat .l {
+  font-family: Roobert, system-ui, sans-serif;
+  font-size: 14px; color: rgba(255,255,255,0.70);
+  margin-top: 6px; line-height: 1.4;
+}
+
+.tab-divider { height: 1px; background: rgba(255,255,255,0.07); margin: 0; }
+
+/* ── Funnel Cascade ── */
+.funnel {
+  display: flex; flex-direction: column; gap: 0; margin-top: 32px;
+  max-width: 640px;
+}
+.funnel-step {
+  display: flex; align-items: center; gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.funnel-step:last-child { border-bottom: none; }
+.funnel-num {
+  font-size: clamp(24px, 3vw, 40px); font-weight: 600;
+  min-width: 160px; text-align: right;
+  color: var(--teal); line-height: 1;
+}
+.funnel-arrow {
+  width: 24px; text-align: center;
+  color: rgba(255,255,255,0.25); font-size: 14px;
+}
+.funnel-label {
+  font-size: 15px; color: rgba(255,255,255,0.70); line-height: 1.4;
+}
+.funnel-step:nth-child(even) .funnel-num { color: var(--purple); }
+
+/* ── ABM Block (parallel to funnel) ── */
+.abm-block {
+  margin-top: 36px; max-width: 640px;
+}
+.abm-divider {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 20px;
+}
+.abm-divider::before, .abm-divider::after {
+  content: ''; flex: 1; height: 1px;
+  background: linear-gradient(to right, rgba(161,131,250,0.3), rgba(161,131,250,0.08));
+}
+.abm-divider::after {
+  background: linear-gradient(to left, rgba(161,131,250,0.3), rgba(161,131,250,0.08));
+}
+.abm-divider-label {
+  font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--purple); white-space: nowrap;
+}
+.abm-inner {
+  display: flex; align-items: center; gap: 24px;
+  padding: 24px;
+  background: rgba(161,131,250,0.04);
+  border: 1px solid rgba(161,131,250,0.12);
+  border-radius: 8px;
+}
+.abm-num {
+  font-size: clamp(32px, 4vw, 52px); font-weight: 600;
+  color: var(--purple); line-height: 1; flex-shrink: 0;
+}
+.abm-title {
+  font-family: Hellix, system-ui, sans-serif;
+  font-size: 17px; font-weight: 600; color: var(--text-bright);
+  letter-spacing: -0.3px; margin-bottom: 6px;
+}
+.abm-desc {
+  font-size: 15px; color: rgba(255,255,255,0.70); line-height: 1.55;
+}
+
+/* ── Engine Grid ── */
+.engine-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1px; margin-top: 32px; max-width: 960px;
+  background: rgba(255,255,255,0.05); border-radius: 8px; overflow: hidden;
+}
+.engine-card {
+  background: rgba(6,6,18,0.85); padding: 28px;
+}
+.engine-card-num {
+  font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--teal); margin-bottom: 12px;
+}
+.engine-card:nth-child(even) .engine-card-num { color: var(--purple); }
+.engine-card-title {
+  font-family: Hellix, system-ui, sans-serif;
+  font-size: 18px; font-weight: 600; color: var(--text-bright);
+  letter-spacing: -0.5px; margin-bottom: 10px; line-height: 1.2;
+}
+.engine-card-desc {
+  font-size: 15px; color: rgba(255,255,255,0.70); line-height: 1.55;
+}
+.engine-card-metric {
+  margin-top: 14px; font-size: 13px; font-weight: 500;
+  color: var(--teal); letter-spacing: 0.02em;
+}
+.engine-card:nth-child(even) .engine-card-metric { color: var(--purple); }
+
+/* ── Proof Block ── */
+.proof-block {
+  margin-top: 32px; padding: 32px;
+  border-left: 3px solid var(--teal);
+  background: rgba(35,231,216,0.03);
+  border-radius: 0 8px 8px 0;
+  max-width: 600px;
+}
+.proof-title {
+  font-family: Hellix, system-ui, sans-serif;
+  font-size: 20px; font-weight: 600; color: var(--text-bright);
+  letter-spacing: -0.5px; margin-bottom: 16px;
+}
+.proof-stats {
+  display: flex; gap: 32px; flex-wrap: wrap;
+}
+.proof-stat-n {
+  font-size: clamp(20px, 2.5vw, 32px); font-weight: 600;
+  color: var(--teal); line-height: 1;
+}
+.proof-stat-l {
+  font-size: 13px; color: rgba(255,255,255,0.70);
+  margin-top: 4px;
+}
+.proof-footer {
+  margin-top: 16px; font-size: 14px;
+  color: rgba(255,255,255,0.60); font-style: italic;
+}
+
+/* ── Upcoming Grid ── */
+.upcoming-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px; margin-top: 32px; max-width: 800px;
+}
+.upcoming-card {
+  padding: 24px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+.upcoming-card-tag {
+  font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--teal); margin-bottom: 10px;
+}
+.upcoming-card:nth-child(even) .upcoming-card-tag { color: var(--purple); }
+.upcoming-card-name {
+  font-family: Hellix, system-ui, sans-serif;
+  font-size: 17px; font-weight: 600; color: var(--text-bright);
+  letter-spacing: -0.3px; line-height: 1.25;
+}
+
+/* ── Closing ── */
+.closing {
+  position: relative; overflow: hidden;
+  padding: clamp(80px, 14vh, 180px) var(--section-pad-x);
+  text-align: center;
+}
+.closing-bg { position: absolute; inset: 0; z-index: 0; }
+.closing-glow {
+  position: absolute; width: 50%; height: 60%; border-radius: 50%;
+  filter: blur(100px); top: 20%; left: 25%;
+  background: radial-gradient(ellipse, rgba(161,131,250,0.08), transparent 70%);
+}
+.closing-particle {
+  position: absolute; left: 50%; top: 50%; width: 80%; height: 100%;
+  transform: translate(-50%, -50%);
+  object-fit: contain; opacity: 0.2;
+  animation: pulse 9s ease-in-out infinite;
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 90%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 90%);
+}
+.closing-noise {
+  position: absolute; inset: 0; opacity: 0.04; pointer-events: none;
+}
+.closing-content {
+  position: relative; z-index: 3; max-width: 640px; margin: 0 auto;
+}
+.closing-headline {
+  font-family: Hellix, system-ui, sans-serif;
+  font-size: clamp(28px, 4.5vw, 56px); font-weight: 600;
+  color: var(--text-bright); letter-spacing: -1.2px;
+  line-height: 1.1; margin-bottom: 24px;
+}
+.closing-sub {
+  font-size: 18px; color: var(--text-mid); line-height: 1.65;
+  max-width: 480px; margin: 0 auto;
+}
+
+/* ── Animations ── */
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.38; transform: scale(1.02); }
+}
+@keyframes hint {
+  0%, 100% { opacity: 0.3; transform: translateY(0); }
+  50% { opacity: 0.8; transform: translateY(8px); }
+}
+
+.tab-reveal {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.tab-reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── Stagger delays ── */
+.tab-reveal:nth-child(2) { transition-delay: 0.1s; }
+.tab-reveal:nth-child(3) { transition-delay: 0.2s; }
+.tab-reveal:nth-child(4) { transition-delay: 0.3s; }
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .hero { padding-top: 100px; }
+  .hero-stats { flex-direction: column; gap: 20px; }
+  .funnel-num { min-width: 100px; font-size: 22px; }
+  .engine-grid { grid-template-columns: 1fr; }
+  .upcoming-grid { grid-template-columns: 1fr; }
+  .proof-stats { flex-direction: column; gap: 20px; }
+  .abm-inner { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <img src="nexar-logo-white.png" alt="Nexar" class="nav-logo">
+  <span class="nav-title">B2B Go-to-Market 2026</span>
+</nav>
+
+<!-- ════════════════════════════════════════ HERO ════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-bg">
+    <div class="hero-glow"></div>
+    <img class="hero-particle" src="particles/hero-map.png" alt="" loading="lazy">
+    <svg class="hero-noise" width="100%" height="100%">
+      <filter id="n0"><feTurbulence baseFrequency="0.65"/></filter>
+      <rect width="100%" height="100%" filter="url(#n0)"/>
+    </svg>
+  </div>
+  <div class="hero-content">
+    <div class="hero-label tab-reveal">Nexar B2B GTM</div>
+    <div class="hero-title tab-reveal">
+      The largest open<br>driving dataset<br><span class="accent">on earth.</span>
+    </div>
+    <div class="hero-sub tab-reveal">
+      The market is moving toward physical AI. The companies building it need verified, real-world data. Nexar is the only company that can provide it at this scale.
+    </div>
+    <div class="hero-stats tab-reveal">
+      <div>
+        <div class="hero-stat-n" data-count="10" data-suffix="B">0</div>
+        <div class="hero-stat-l">Miles driven</div>
+      </div>
+      <div>
+        <div class="hero-stat-n purple" data-count="45" data-suffix=" PB">0</div>
+        <div class="hero-stat-l">Petabytes of data</div>
+      </div>
+      <div>
+        <div class="hero-stat-n" data-count="1" data-suffix="" data-special="growing">1</div>
+        <div class="hero-stat-l">Sensor network growing daily</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════ 01 THE NUMBER ════════════════════════════════════════ -->
+<div class="tab-divider"></div>
+<div class="tab-section alt">
+  <div class="tab-bg">
+    <div class="tab-glow" style="top:10%;left:-10%;background:radial-gradient(ellipse,rgba(161,131,250,0.06),transparent 70%)"></div>
+    <img class="tab-particle-img" src="particles/neon-sphere.png" alt="" loading="lazy">
+    <svg class="tab-noise" width="100%" height="100%">
+      <filter id="n1"><feTurbulence baseFrequency="0.65"/></filter>
+      <rect width="100%" height="100%" filter="url(#n1)"/>
+    </svg>
+  </div>
+  <div class="tab-content-inner">
+    <div class="tab-chapter purple tab-reveal">01 &ndash; The Number</div>
+    <div class="tab-headline tab-reveal">
+      <span style="color:var(--purple)">$33M</span> in data deals<br>by end of 2026.
+    </div>
+    <div class="tab-copy tab-reveal">
+      32 deals at approximately $1M average. Every marketing decision connects to that number. Every week, we report against it.
+    </div>
+    <div class="tab-stat-row tab-reveal">
+      <div class="tab-stat purple"><div class="n" data-count="32">0</div><div class="l">Target deals</div></div>
+      <div class="tab-stat"><div class="n" data-prefix="~$" data-count="1" data-suffix="M">0</div><div class="l">Average deal size</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════ 02 THE FUNNEL ════════════════════════════════════════ -->
+<div class="tab-divider"></div>
+<div class="tab-section">
+  <div class="tab-bg">
+    <div class="tab-glow" style="top:15%;left:-8%;background:radial-gradient(ellipse,rgba(35,231,216,0.06),transparent 70%)"></div>
+    <img class="tab-particle-img" src="particles/road-topo.png" alt="" loading="lazy">
+    <svg class="tab-noise" width="100%" height="100%">
+      <filter id="n2"><feTurbulence baseFrequency="0.65"/></filter>
+      <rect width="100%" height="100%" filter="url(#n2)"/>
+    </svg>
+  </div>
+  <div class="tab-content-inner wide">
+    <div class="tab-chapter teal tab-reveal">02 &ndash; The Funnel</div>
+    <div class="tab-headline tab-reveal">From first impression<br>to closed deal.</div>
+    <div class="tab-copy tab-reveal">
+      The funnel is modeled end-to-end, with a parallel ABM motion targeting 50 of the highest-value accounts in AV, insurance, OEM, and government.
+    </div>
+    <div class="funnel tab-reveal">
+      <div class="funnel-step">
+        <div class="funnel-num" data-count="50" data-suffix="M">0</div>
+        <div class="funnel-arrow">&darr;</div>
+        <div class="funnel-label">Impressions</div>
+      </div>
+      <div class="funnel-step">
+        <div class="funnel-num" data-count="630" data-suffix="K">0</div>
+        <div class="funnel-arrow">&darr;</div>
+        <div class="funnel-label">Clicks</div>
+      </div>
+      <div class="funnel-step">
+        <div class="funnel-num" data-count="314" data-suffix="K">0</div>
+        <div class="funnel-arrow">&darr;</div>
+        <div class="funnel-label">Web visits</div>
+      </div>
+      <div class="funnel-step">
+        <div class="funnel-num" data-count="181" data-suffix="">0</div>
+        <div class="funnel-arrow">&darr;</div>
+        <div class="funnel-label">Sales-qualified leads</div>
+      </div>
+    </div>
+
+    <!-- ABM — parallel motion, not a funnel stage -->
+    <div class="abm-block tab-reveal">
+      <div class="abm-divider">
+        <span class="abm-divider-label">Parallel motion</span>
+      </div>
+      <div class="abm-inner">
+        <div class="abm-num" data-count="50" data-suffix="">0</div>
+        <div class="abm-detail">
+          <div class="abm-title">ABM Target Accounts</div>
+          <div class="abm-desc">Highest-value accounts in AV, insurance, OEM, and government &ndash; pursued through dedicated account-based plays running alongside the inbound funnel.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════ 03 THE ENGINE ════════════════════════════════════════ -->
+<div class="tab-divider"></div>
+<div class="tab-section alt">
+  <div class="tab-bg">
+    <div class="tab-glow" style="top:5%;left:-12%;background:radial-gradient(ellipse,rgba(161,131,250,0.06),transparent 70%)"></div>
+    <img class="tab-particle-img" src="particles/data-cluster.png" alt="" loading="lazy">
+    <svg class="tab-noise" width="100%" height="100%">
+      <filter id="n3"><feTurbulence baseFrequency="0.65"/></filter>
+      <rect width="100%" height="100%" filter="url(#n3)"/>
+    </svg>
+  </div>
+  <div class="tab-content-inner wide">
+    <div class="tab-chapter purple tab-reveal">03 &ndash; The Engine</div>
+    <div class="tab-headline tab-reveal">Six motions. Every week.<br>All year.</div>
+    <div class="tab-copy tab-reveal">
+      Running simultaneously, the marketing engine converts every data signal into pipeline without adding headcount.
+    </div>
+    <div class="engine-grid tab-reveal">
+      <div class="engine-card">
+        <div class="engine-card-num">Motion 01</div>
+        <div class="engine-card-title">Weekly Data Insight</div>
+        <div class="engine-card-desc">Published from Nexar's own network. Ongoing proof of scale and rarity no competitor can replicate.</div>
+      </div>
+      <div class="engine-card">
+        <div class="engine-card-num">Motion 02</div>
+        <div class="engine-card-title">Leadership Posts</div>
+        <div class="engine-card-desc">Rotating across executives weekly. Opinionated, data-anchored, outperforming company accounts by 10-20x.</div>
+      </div>
+      <div class="engine-card">
+        <div class="engine-card-num">Motion 03</div>
+        <div class="engine-card-title">Deep-Insight Newsletter</div>
+        <div class="engine-card-desc">Monthly from Eran. Repurposed across blog and social channels for maximum reach.</div>
+      </div>
+      <div class="engine-card">
+        <div class="engine-card-num">Motion 04</div>
+        <div class="engine-card-title">Agentic Signal Scaling</div>
+        <div class="engine-card-desc">Every data drop becomes multi-channel content automatically. No additional headcount required.</div>
+      </div>
+      <div class="engine-card">
+        <div class="engine-card-num">Motion 05</div>
+        <div class="engine-card-title">Paid Social Amplification</div>
+        <div class="engine-card-desc">X at $1.14 CPM and LinkedIn at $4.76 CPM. Both running 80-87% below B2B benchmarks.</div>
+        <div class="engine-card-metric">80-87% below B2B benchmarks</div>
+      </div>
+      <div class="engine-card">
+        <div class="engine-card-num">Motion 06</div>
+        <div class="engine-card-title">Sponsored Events</div>
+        <div class="engine-card-desc">Four per year generating ABM lists, pipeline visibility, and reusable content.</div>
+        <div class="engine-card-metric">4 events / year</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════ 04 PROOF ════════════════════════════════════════ -->
+<div class="tab-divider"></div>
+<div class="tab-section">
+  <div class="tab-bg">
+    <div class="tab-glow" style="top:10%;left:-10%;background:radial-gradient(ellipse,rgba(35,231,216,0.07),transparent 70%)"></div>
+    <img class="tab-particle-img" src="particles/map-network.png" alt="" loading="lazy">
+    <svg class="tab-noise" width="100%" height="100%">
+      <filter id="n4"><feTurbulence baseFrequency="0.65"/></filter>
+      <rect width="100%" height="100%" filter="url(#n4)"/>
+    </svg>
+  </div>
+  <div class="tab-content-inner">
+    <div class="tab-chapter teal tab-reveal">04 &ndash; The Proof</div>
+    <div class="tab-headline tab-reveal">Risk Index showed what<br>full activation produces.</div>
+    <div class="tab-copy tab-reveal">
+      Two weeks. One launch. The engine running at full power.
+    </div>
+    <div class="proof-block tab-reveal">
+      <div class="proof-title">Risk Index Launch Results</div>
+      <div class="proof-stats">
+        <div>
+          <div class="proof-stat-n" data-count="1.63" data-suffix="M" data-decimals="2">0</div>
+          <div class="proof-stat-l">Impressions</div>
+        </div>
+        <div>
+          <div class="proof-stat-n" data-count="22" data-suffix="">0</div>
+          <div class="proof-stat-l">Leads generated</div>
+        </div>
+        <div>
+          <div class="proof-stat-n" data-prefix="$" data-count="3222" data-suffix="">0</div>
+          <div class="proof-stat-l">Total spend</div>
+        </div>
+      </div>
+      <div class="proof-footer">Two weeks. $3,222. Full-funnel proof of concept.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════ 05 WHAT'S COMING ════════════════════════════════════════ -->
+<div class="tab-divider"></div>
+<div class="tab-section alt">
+  <div class="tab-bg">
+    <div class="tab-glow" style="top:8%;left:-10%;background:radial-gradient(ellipse,rgba(161,131,250,0.07),transparent 70%)"></div>
+    <img class="tab-particle-img" src="particles/dna-growth.png" alt="" loading="lazy">
+    <svg class="tab-noise" width="100%" height="100%">
+      <filter id="n5"><feTurbulence baseFrequency="0.65"/></filter>
+      <rect width="100%" height="100%" filter="url(#n5)"/>
+    </svg>
+  </div>
+  <div class="tab-content-inner">
+    <div class="tab-chapter purple tab-reveal">05 &ndash; What's Coming</div>
+    <div class="tab-headline tab-reveal">Not a product launch.<br>A category declaration.</div>
+    <div class="tab-copy tab-reveal">
+      All launching in the same window. A coordinated wave that makes Nexar's position in physical AI impossible to ignore.
+    </div>
+    <div class="upcoming-grid tab-reveal">
+      <div class="upcoming-card">
+        <div class="upcoming-card-tag">Product</div>
+        <div class="upcoming-card-name">BADAS 2.0</div>
+      </div>
+      <div class="upcoming-card">
+        <div class="upcoming-card-tag">Partnership</div>
+        <div class="upcoming-card-name">IBM</div>
+      </div>
+      <div class="upcoming-card">
+        <div class="upcoming-card-tag">Brand</div>
+        <div class="upcoming-card-name">New Brand Narrative</div>
+      </div>
+      <div class="upcoming-card">
+        <div class="upcoming-card-tag">Platform</div>
+        <div class="upcoming-card-name">Partners &amp; OEMs</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════ 06 THE SIGNAL (CLOSING) ════════════════════════════════════════ -->
+<div class="tab-divider"></div>
+<div class="closing">
+  <div class="closing-bg">
+    <div class="closing-glow"></div>
+    <img class="closing-particle" src="particles/neon-energy.png" alt="" loading="lazy">
+    <svg class="closing-noise" width="100%" height="100%">
+      <filter id="n6"><feTurbulence baseFrequency="0.65"/></filter>
+      <rect width="100%" height="100%" filter="url(#n6)"/>
+    </svg>
+  </div>
+  <div class="closing-content">
+    <div class="tab-chapter teal tab-reveal" style="text-align:center">06 &ndash; The Signal</div>
+    <div class="closing-headline tab-reveal">
+      One real-world insight.<br>Every week.<br><span style="color:var(--teal)">Every reason to pay attention.</span>
+    </div>
+    <div class="closing-sub tab-reveal">
+      Every week, proof that no competitor can replicate what Nexar sees. That is the signal. That is the strategy.
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div style="padding:40px var(--section-pad-x); text-align:center; border-top:1px solid rgba(255,255,255,0.05);">
+  <img src="nexar-logo-white.png" alt="Nexar" style="height:18px; opacity:0.4; margin-bottom:12px;">
+  <div style="font-size:12px; color:rgba(255,255,255,0.35); letter-spacing:0.08em;">Confidential &ndash; Nexar B2B GTM 2026</div>
+</div>
+
+<script>
+/* ── Scroll Reveal ── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.tab-reveal').forEach(el => obs.observe(el));
+
+/* ── Animated Counters ── */
+function animateCounter(el) {
+  const target = parseFloat(el.dataset.count);
+  const prefix = el.dataset.prefix || '';
+  const suffix = el.dataset.suffix || '';
+  const decimals = parseInt(el.dataset.decimals) || 0;
+  const special = el.dataset.special;
+
+  if (special === 'growing') {
+    el.textContent = '1';
+    el.style.position = 'relative';
+    return;
+  }
+
+  const duration = 1800;
+  const startTime = performance.now();
+
+  function easeOutExpo(t) {
+    return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+  }
+
+  function update(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const easedProgress = easeOutExpo(progress);
+    const current = target * easedProgress;
+
+    if (decimals > 0) {
+      el.textContent = prefix + current.toFixed(decimals) + suffix;
+    } else {
+      const formatted = target >= 1000
+        ? Math.round(current).toLocaleString()
+        : Math.round(current).toString();
+      el.textContent = prefix + formatted + suffix;
+    }
+
+    if (progress < 1) {
+      requestAnimationFrame(update);
+    }
+  }
+
+  requestAnimationFrame(update);
+}
+
+const counterObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      animateCounter(e.target);
+      counterObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('[data-count]').forEach(el => counterObs.observe(el));
+
+/* ── Hide scroll hint on scroll ── */
+const scrollHint = document.querySelector('.scroll-hint');
+if (scrollHint) {
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 100) {
+      scrollHint.style.opacity = '0';
+      scrollHint.style.transition = 'opacity 0.5s ease';
+    }
+  }, { passive: true });
+}
+</script>
+</body>
+</html>
